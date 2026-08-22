@@ -26,34 +26,24 @@ Install Java
 
 ```
 sudo apt update
-sudo apt install openjdk-17-jre
-```
+sudo apt install fontconfig openjdk-21-jre
 
+```
 Verify Java is Installed
 
 ```
 java -version
 ```
 
-Now, you can proceed with installing Jenkins
+### Now, you can proceed with installing Jenkins
 
-# Update system
-sudo apt update -y
-
-# Install Java (required for Jenkins)
-sudo apt install openjdk-11-jdk -y
-
-# Add Jenkins repo key
-wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key | sudo apt-key add -
-
-# Add Jenkins repo
-echo "deb https://pkg.jenkins.io/debian-stable binary/" | sudo tee /etc/apt/sources.list.d/jenkins.list
-
-# Update again with Jenkins repo
-sudo apt update -y
-
-# Install Jenkins
-sudo apt install jenkins -y
+sudo wget -O /etc/apt/keyrings/jenkins-keyring.asc \
+  https://pkg.jenkins.io/debian-stable/jenkins.io-2026.key
+echo "deb [signed-by=/etc/apt/keyrings/jenkins-keyring.asc]" \
+  https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
+  /etc/apt/sources.list.d/jenkins.list > /dev/null
+sudo apt update
+sudo apt install jenkins
 
 
 **Note: ** By default, Jenkins will not be accessible to the external world due to the inbound traffic restriction by AWS. Open port 8080 in the inbound traffic rules as show below.
